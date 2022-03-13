@@ -12,12 +12,6 @@
 #define  WON 0
 #define  LOOSE 1
 
-
-int rollDice(void){
-    return(rand()%7);
-}
-
-
 int initialAmount = 50, minimumBets = 5;
 int playGame(void){
     
@@ -136,30 +130,3 @@ do { //do-while loop to determine the point match, if winner wasn't determined d
     }while (strcmp(&input, "q") || totalRoll >= pointMatch);
    
 }
-
-int placingBets(void){
-
-}
-
-/****************************************************************************************************************
- Function Name: main
- Purpose: This is the driver function it allows us to run out code
- Function in parameter: void
- Funciton out parameter: EXIT_SUCCESS
- Version: 1
- Author: Kadija Allagouma
-***************************************************************************************************************/
-int main(){
-
-   int result = playGame();
-   if(result == WON){
-       printf("YOU WON!\n");
-   } else if (result == LOOSE){
-       printf("YOU LOST!\n");
-   } else {
-        printf("Exiting\n");
-   }
-    
-    return EXIT_SUCCESS;
-    
-}/*end of main*/

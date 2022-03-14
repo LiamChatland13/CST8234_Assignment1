@@ -1,106 +1,61 @@
+/**
+ * Title: Lab Assesment #1 - Dice Game Implementation 
+ * Course: CST8234 C Language
+ * @author: Kadija Allagouma
+ * Due date: 2022-03-13
+ * Submission date: 03/13/22
+ */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "rollDice.h"
 #include "playGame.h"
-#define WON 1
-#define LOSE 0
-
-/*
-* Title: Assignment #1 - Dice Game
-* Course: CST8234 C Language
-* @Author: <<Liam Chatland (041000031)>> <<Kadija Adamou Allagouma (enter your id)>>      
-* Lab Section: 011
-* Professor: Surbhi Bahri
-* Due date: 03/11/2022
-* Submission date: 00/00/0000
-*/
 
 
 
-/********************************************************************************
- * Function Name: header 
- * Purpose: Prints out Game stats for users benefit 
- * Function in parameters: void 
- * Function out parameter: int: 0 
- * Version: 1 
- * Author:  <<Kadija_Adamou_Allagouma>>
- * *****************************************************************************/ 
-int header(){
-    printf("------------------------------------------------------------------------------------------------------------------\n");
-    printf("%15s %15s %15s %20s %25s ", "ROLL NUM", "DICE#1", "DICE#2", "TOTAL ROLL", "POINT MATCH\n");
-    printf("------------------------------------------------------------------------------------------------------------------\n");
-    return 0;
-}
 
 
 
-/********************************************************************************
- * Function Name: firstPlay 
- * Purpose:  
- * Function in parameters: void 
- * Function out parameter: LOSE or WIN macros 
- * Version: 1 
- * Author:  <<Kadija_Adamou_Allagouma>>
- * *****************************************************************************/
-int firstPlay(){
-   int firstRoll = rollDice();
-   int secondRoll = rollDice();
 
-    if((firstRoll + secondRoll) == 7 || (firstRoll + secondRoll) == 11 ) {
-        return WON;
-    } if((firstRoll + secondRoll) == 2 || (firstRoll + secondRoll) == 3  || (firstRoll + secondRoll) == 12 ) {
-        return LOSE;
-    }
-}
-
-
-/********************************************************************************
- * Function Name: main 
- * Purpose: Main Structure of program, calls all necessary functions
- * Function in parameters: void 
- * Function out parameter: EXIT_SUCCESS 
- * Version: 1 
- * Author: <<Liam_Chatland>> , <<Kadija_Adamou_Allagouma>>
- * *****************************************************************************/
+/****************************************************************************************************************
+ Function Name: main
+ Purpose: This is the driver function it allows us to run out code
+ Function in parameter: void
+ Funciton out parameter: EXIT_SUCCESS
+ Version: 1
+ Author: Kadija Allagouma
+***************************************************************************************************************/
 int main(){
-    int playAgain;
+    here:
     while(1){
-        char play;
-        printf("Please enter [y or Y] to play Dice or [n or N] to exit:\n");
-        scanf("%c",&play);
-        if(play == 'y' || play == 'Y'){
-            break;   
-        }else if(play == 'n' || play == 'N'){
-            printf("Exiting...\n");
-            exit(EXIT_SUCCESS);
-        }else{
-            printf("Wrong input please try again\n");
-            
-        }
-    }
-    do{
-        playAgain = playGame(50);    
-    }while(playAgain == 1);
-       
-
-    //playGame() Function (gonna move to seperate file later)
-    /*char roll;
-    int firstRoll;
-    int secondRoll;
-    printf("ROLL THE DICE [ENTER], to QUIT enter [q]: ");
-    scanf("%s", &roll);
+        int balance = 50;
+        int result;
+        do{
+            if(balance<=0){
+                char userInput;
+                printf("You have no more funds. Start over? [y/n]?\n");
+                scanf("%s",&userInput);
+                if(userInput == 'y'){
+                    goto here;
+                }else if (userInput == 'n'){
+                    printf("Exiting...");
+                    exit(EXIT_SUCCESS);
+                }else{
+                    printf("Invalid input.. try again");
+                }
+            }
+            printf("You Have %d Dollars!\n",balance);
+            int result = playGame(&balance);
+        }while(1);
+   /*if(result == WON){
+       printf("YOU WON!\n");
+   } else if (result == LOSE){
+       printf("YOU LOST!\n");
+   } else {
+        printf("Exiting\n");
+   }*/
     
-    firstRoll = rollDice();
-    secondRoll = rollDice();
-
-    do{
-    if (strcmp(&roll, "") == 0){
-       printf(firstPlay()); 
-        scanf("%s", &roll);
-    } else if (strcmp(&roll, "q") == 0) {
-        printf("Exiting..\n");
-    } else {
-        printf("Error... You must Enter either 'ENTER' or 'q\n");
-    }
-    }while(&roll != "q");*/
+    return EXIT_SUCCESS;
 }
+}/*end of main*/

@@ -1,6 +1,25 @@
+/**
+ * Title: Lab Assesment #1 - Dice Game Implementation 
+ * Course: CST8234 C Language
+ * @author: Kadija Allagouma & Liam Chatland
+ * Due date: 2022-03-13
+ * Submission date: 03/13/22
+ */
+
 #define  WON 0
 #define  LOSE 1
 
+
+
+
+/****************************************************************************************************************
+ Function Name: playGame
+ Purpose: Main games functions and logic
+ Function in parameter: int
+ Funciton out parameter: WON , LOSE  or exit(EXIT_SUCCESS)
+ Version: 1
+ Author: Kadija Allagouma and Liam Chatland
+***************************************************************************************************************/
 int playGame(int *balance){
 
     do{
@@ -29,7 +48,7 @@ int playGame(int *balance){
         if( strcmp(&entry, "y") == 0 ){
             break;//if user selects 'yes' control breaks out of the loop, the program proceeds
         } else if ( strcmp(&entry, "n") == 0){
-            printf("Have a nice day!");
+            printf("Have a nice day!\n");
             return 0;//if user selects 'no' control goes back to main
         } else {
             printf("Invalid option\n");//handles any other input that isn't 'y' or 'n'
@@ -62,7 +81,7 @@ int playGame(int *balance){
  
  
     srand(time(NULL));
-    int firstRoll, secondRoll, person, computer, rollNum =0, playerDiceRoll, pointMatch = 0, computerDiceRoll; //Dice rolling variables
+    int firstRoll, secondRoll, person, computer, rollNum = 0, playerDiceRoll, pointMatch = 0, computerDiceRoll; //Dice rolling variables
     char input; 
    
     while (strcmp(&input, "q") == 0 || pointMatch == 0){ 
@@ -92,13 +111,14 @@ int playGame(int *balance){
         if(playerDiceRoll == 7 || playerDiceRoll == 11){ //if a player rolls either a 7 or 11 they win
             printf("You rolled %i, winning the match!\n", playerDiceRoll);
             *balance = bettingAmount * 3;
+            printf("congrats! You won on the first roll.");
             return WON;
         } else if (playerDiceRoll == 2 || playerDiceRoll == 3 || playerDiceRoll == 12){ //if a player rolls either an 2, 3 or 12 they loose
             printf("You rolled %i, you lose!\n", playerDiceRoll);
             *balance = *balance - bettingAmount;
             return LOSE;
         }else if(computerDiceRoll == 7 || computerDiceRoll == 11){
-            printf("Computer rolled %i winning the match and you lose\n", computerDiceRoll);
+            printf("Sorry, the Computer rolled %i winning the match and you lose\n", computerDiceRoll);
             *balance = *balance - bettingAmount;
             return LOSE;
         } else if (computerDiceRoll == 2 || computerDiceRoll == 3 || computerDiceRoll == 12){ //if a player rolls either an 2, 3 or 12 they loose
@@ -116,7 +136,7 @@ int playGame(int *balance){
 
 do { //do-while loop to determine the point match, if winner wasn't determined during the first round
     printf("Computer rolled %d, Game Continues...\n",computerDiceRoll);
-    printf("ROLL THE DICE WITH [r], TO QUIT enter [q]\n "); //user presses "Enter" key to roll the dice
+    printf("ROLL THE DICE WITH [r], TO QUIT enter [q]\n "); //user presses "r" key to roll the dice
     scanf("%s",&input);
     if((strcmp(&input, "q") == 0)){ //if user selects 'q' program is exited
         printf("Have a nice day!");
@@ -136,7 +156,7 @@ do { //do-while loop to determine the point match, if winner wasn't determined d
     computerDiceRoll = firstRoll + secondRoll; 
     //printf("Computer rolled %i continue..\n", computerDiceRoll);
 
-    if(playerDiceRoll == pointMatch ){ //if total rolled is greater that the point match the player wins
+    if(playerDiceRoll == pointMatch ){ //if total rolled is equal to the point match the player wins
        printf("You rolled %i, winning the match\n", playerDiceRoll);
         *balance = bettingAmount * 3;
         return WON;
@@ -146,6 +166,7 @@ do { //do-while loop to determine the point match, if winner wasn't determined d
         return LOSE;
     } else if(playerDiceRoll == 7 || playerDiceRoll == 11){ //if a '7' or '11' is rolled the player wins
         *balance = bettingAmount * 3;
+        printf("You won on your %d try!",rollNum);
         return WON;
     } else if(computerDiceRoll == 7 || computerDiceRoll == 11){
             printf("Computer rolled %i winning the match and you lose\n", computerDiceRoll);
